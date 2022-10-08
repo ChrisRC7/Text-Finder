@@ -1,18 +1,1 @@
-## Getting Started
-
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
-
-## Folder Structure
-
-The workspace contains two folders by default, where:
-
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
-
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
-
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Este proyecto consiste en una aplicación llamada "Text Finder" que como su nombre lo indica se encargara de buscar palabras o frases en diferentes tipos de archivos, utilizando un servidor que se encargara de procesar las solicitudes de los usuarios, la comunicación de cliente-servidos sera mediante sockets y la busqueda de las palabras o frases se realiza utilizando arboles. 
