@@ -1,129 +1,116 @@
 package Arboles;
 
 public class AvlTree {
-    public Node root;
 
-    class Node {
-        int key;
-        Node left,right;
-        int height;
+    public AvlNode root;
 
-        public Node(int val) {
-            key = val;
-            left = right = null;
-            height = 0;
-        }
-    }
-
-    public AvlTree(int val) {
-        root = new Node(val);
-    }
+    private static final int ALLOWED_IMBALANCE = 1;
 
     public AvlTree() {
         root = null;
     }
 
     public void insert(int val) {
-        root = insert(root, val);
+        root = insert(val, root);
     }
 
-    public int getHeight(Node node) {
-        if (node == null) {
-            return -1;
+    private int height(AvlNode t) {
+        return t == null ? -1 : t.height;
+    }
+
+    private AvlNode insert(int x, AvlNode t) {
+        if (t == null) {
+        return new AvlNode(x);
+
         }
-        return node.height;
+
+        if (x < t.element) {
+        t.left = insert(x, t.left);
+
+        } else if (x > t.element) {
+        t.right = insert(x, t.right);
+        }
+
+        return balance(t);
     }
 
-    public int max(int a, int b) {
-        return a>b?a:b;
-    }
+    private AvlNode balance(AvlNode t) {
+        if (t == null)
+            return t;
+        if (height(t.left) - height(t.right) > ALLOWED_IMBALANCE) {
+            if (height(t.left.left) >= height(t.left.right))
+            t = rotateWithLeftChild(t);
+            else
+            t = doubleWithLeftChild(t);
 
-    public Node insert(Node node, int val) {
-        if (node == null) {
-            return new Node(val);
-        } 
-
-        if (val<node.key) {
-            node.left = insert(node.left, val);
-        } else if (val>node.key){
-            node.right = insert(node.right, val);
         } else {
-            return node;
+            if (height(t.right) - height(t.left) > ALLOWED_IMBALANCE){
+                if (height(t.right.right) >= height(t.right.left))
+                t = rotateWithRightChild(t);
+            else
+            t = doubleWithRightChild(t);
+            }
         }
 
-        node.height =  1+max(getHeight(node.left), getHeight(node.right));
-
-        int balFactor = getBalanceFactor(node);
-
-        //Left - Left Case
-        if (balFactor>1 && val < node.left.key) {
-            return rightRotation(node);
+        t.height = Math.max(height(t.left), height(t.right)) + 1;
+        return t;
         }
 
-        //Left - Right Case
-        if (balFactor>1 && val > node.left.key) {
-            node.left = leftRotation(node.left);
-            return rightRotation(node);
+        private AvlNode rotateWithLeftChild(AvlNode k2) {
+            AvlNode k1 = k2.left;
+            k2.left = k1.right;
+            k1.right = k2;
+            k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
+            k1.height = Math.max(height(k1.left), k2.height) + 1;
+            return k1;
         }
 
-        //Right - Right Case
-        if (balFactor<-1 && val < node.left.key) {
-            return leftRotation(node);
+        private AvlNode doubleWithLeftChild(AvlNode k3) {
+            k3.left = rotateWithRightChild(k3.left);
+            return rotateWithLeftChild(k3);
         }
 
-        //Right - Left Case
-        if (balFactor>1 && val > node.left.key) {
-            node.right = rightRotation(node.right);
-            return leftRotation(node);
+        private AvlNode rotateWithRightChild(AvlNode k2) {
+            AvlNode k1 = k2.right;
+            k2.right = k1.left;
+            k1.left = k2;
+            k2.height = Math.max(height(k2.left), height(k2.right)) + 1;
+            k1.height = Math.max(height(k1.left), k2.height) + 1;
+            return k1;
         }
 
-        return node;
-    }
+        private AvlNode doubleWithRightChild(AvlNode k3) {
+            k3.right = rotateWithRightChild(k3.right);
 
-    private Node rightRotation(Node z) {
-        Node y = z.left;
-        Node t3 = y.right;
-
-        y.right = z;
-        z.left = t3;
-
-        z.height= 1 + max(getHeight(z.left), getHeight(z.right));
-        y.height= 1 + max(getHeight(y.left), getHeight(y.right));
-
-        return y;
-    }
-
-    private Node leftRotation(Node z) {
-        Node y= z.right;
-        Node t3= y.left;
-
-        y.left= z;
-        z.right= t3;
-        
-        z.height= 1 + max(getHeight(z.left), getHeight(z.right));
-        y.height= 1 + max(getHeight(y.left), getHeight(y.right));
-
-        return y;
-    }
-
-    private int getBalanceFactor(Node node) {
-        if (node == null) {
-            return 0;
-        }
-        return getHeight(node.left) - getHeight(node.right);
-    }
-
-    public void inOrder(Node root) {
-        if (root!=null) {
-            inOrder(root.left);
-            System.out.println(root.key + " height is " + root.height);
-            inOrder(root.right);
+            return rotateWithRightChild(k3);
         }
 
-    }
+        public boolean contains(int element) {
+            return this.contains(element, this.root);
+        }
+
+        private boolean contains(int element, AvlNode node) {
+            if (node == null) {
+                System.out.println("No hay");
+                return false;
+            }else {
+                int compareResult = element; //.compareTo(node.element);
+                if (compareResult < node.element){
+                    System.out.println("es menor");
+                    return contains(element, node.left);
+                }else {
+                    if (compareResult > node.element){
+                        System.out.println("es mayor");
+                        return contains(element, node.right);
+                    }
+                    else{
+                        System.out.println("esta");
+                        return true;
+                }
+                }
+            }
+        }
+            
+
 }
 
-/*
- * En agradecimiento de este maravilloso codigo dejo aqui en link del origen del codigo:
- * https://www.youtube.com/watch?v=x7dkE4WGgZw&ab_channel=LogicFirstTamil
- */
