@@ -10,7 +10,7 @@ public class AvlTree {
         root = null;
     }
 
-    public void insert(int val) {
+    public void insert(String val) {
         root = insert(val, root);
     }
 
@@ -18,17 +18,17 @@ public class AvlTree {
         return t == null ? -1 : t.height;
     }
 
-    private AvlNode insert(int x, AvlNode t) {
+    private AvlNode insert(String x, AvlNode t) {
         if (t == null) {
-        return new AvlNode(x);
+            return new AvlNode(x);
 
         }
 
-        if (x < t.element) {
-        t.left = insert(x, t.left);
+        if (x.length() < t.element.length()) {
+            t.left = insert(x, t.left);
 
-        } else if (x > t.element) {
-        t.right = insert(x, t.right);
+        } else if (x.length() >= t.element.length()) {
+            t.right = insert(x, t.right);
         }
 
         return balance(t);
@@ -85,31 +85,37 @@ public class AvlTree {
             return rotateWithRightChild(k3);
         }
 
-        public boolean contains(int element) {
+        public boolean contains(String element) {
             return this.contains(element, this.root);
         }
 
-        private boolean contains(int element, AvlNode node) {
+        private boolean contains(String element, AvlNode node) {
             if (node == null) {
-                System.out.println("No hay");
+                System.out.println("Se termino de recorrer el arbol");
                 return false;
             }else {
-                int compareResult = element; //.compareTo(node.element);
-                if (compareResult < node.element){
+                int compareResult = element.length(); //.compareTo(node.element);
+                if (compareResult < node.element.length()){
                     System.out.println("es menor");
                     return contains(element, node.left);
                 }else {
-                    if (compareResult > node.element){
+                    if (compareResult >= node.element.length()){
+                        if (element.equals(node.element)){
+                            System.out.println("esta");
+                        }
                         System.out.println("es mayor");
                         return contains(element, node.right);
                     }
                     else{
-                        System.out.println("esta");
-                        return true;
-                }
+                        System.out.println("No esta; es el print del de abajo");
+                        return false;
+                        }
+                        
+                        
                 }
             }
         }
+        
             
 
 }

@@ -1,14 +1,16 @@
 package Arboles;
 
 public class AvlNode {
-    int element;
+    String element;
     AvlNode left;
     AvlNode right;
     int height;
-    public AvlNode(int element) {
+
+    public AvlNode(String element) {
         this(element, null, null);
     }
-    public AvlNode(int element, AvlNode left, AvlNode right) {
+    
+    public AvlNode(String element, AvlNode left, AvlNode right) {
         this.element = element;
         this.left = left;
         this.right = right;
