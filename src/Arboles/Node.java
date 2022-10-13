@@ -1,6 +1,8 @@
-package Main.Arboles;
+package Arboles;
 
 public class Node<T extends Comparable<T>> {
+    
+    
     T element;
     Node<T> left;
     Node<T> right;
@@ -15,4 +17,7 @@ public class Node<T extends Comparable<T>> {
         this.left = left;
         this.right = right;
     }
+
+
+
 }
