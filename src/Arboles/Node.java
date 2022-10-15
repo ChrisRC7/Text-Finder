@@ -18,6 +18,4 @@ public class Node<T extends Comparable<T>> {
         this.right = right;
     }
 
-
-
 }
