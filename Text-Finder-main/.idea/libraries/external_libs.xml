@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="external libs">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/external libs/poi-ooxml-full-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-scratchpad-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-examples-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-ooxml-lite-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-javadoc-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-ooxml-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-excelant-5.2.3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

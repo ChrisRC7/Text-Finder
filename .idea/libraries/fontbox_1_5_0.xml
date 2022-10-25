@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="fontbox-1.5.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Text-Finder-main/external libs/fontbox-1.5.0.jar/fontbox-1.5.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

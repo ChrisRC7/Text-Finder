@@ -7,8 +7,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="commons-logging-1.2.1.1" level="project" />
-    <orderEntry type="library" name="fontbox-1.5.0" level="project" />
     <orderEntry type="library" name="pdfbox-1.2.0" level="project" />
   </component>
 </module>
