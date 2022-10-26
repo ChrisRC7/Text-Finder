@@ -1,1 +1,0 @@
-Este proyecto consiste en una aplicación llamada "Text Finder" que como su nombre lo indica se encargara de buscar palabras o frases en diferentes tipos de archivos, utilizando un servidor que se encargara de procesar las solicitudes de los usuarios, la comunicación de cliente-servidos sera mediante sockets y la busqueda de las palabras o frases se realiza utilizando arboles. 

@@ -2,6 +2,15 @@
     "java.project.sourcePaths": ["src"],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "external libs/poi-5.2.3.jar",
+        "external libs/poi-examples-5.2.3.jar",
+        "external libs/poi-excelant-5.2.3.jar",
+        "external libs/poi-javadoc-5.2.3.jar",
+        "external libs/poi-ooxml-5.2.3.jar",
+        "external libs/poi-ooxml-full-5.2.3.jar",
+        "external libs/poi-ooxml-lite-5.2.3.jar",
+        "external libs/poi-scratchpad-5.2.3.jar",
+        "external libs/pdfbox-1.2.0.jar/pdfbox-1.2.0.jar"
     ]
 }
