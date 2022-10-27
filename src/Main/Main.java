@@ -1,10 +1,35 @@
 package Main;
 
+import java.io.File;
+
+import org.apache.commons.io.FilenameUtils;
+
 import Arboles.AvlTree;
 import Arboles.BinaryTree;
+import Interfaz.Interfaz;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+
+        String Ruta= System.getProperty("user.dir");
+        File Carpeta = new File("src/Lectores");
+
+        String[] archivos = Carpeta.list();
+
+        for (int i = 0; i < archivos.length; i++) {
+            String archivo_acutal= archivos[i];
+            String tipo= FilenameUtils.getExtension(archivo_acutal);
+            if (!tipo.equals("pdf") && !tipo.equals("java")){
+                System.out.println(archivo_acutal);
+            }
+        }
+
+        Interfaz.VentanaInicio();
+
+
+
+
+        /* 
         AvlTree Tree;
         Tree = new AvlTree();
         Tree.insert("50000");
@@ -44,6 +69,7 @@ public class Main {
         TreeB.findMax();
         System.out.println("El menor es: ");
         TreeB.findMin();
+        */
 
     }
 }

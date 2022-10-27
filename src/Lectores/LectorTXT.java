@@ -9,7 +9,7 @@ public class LectorTXT {
         BufferedReader lector;
 
         try{
-            archivo= new FileReader("C:\\Users\\ignac\\Desktop\\Text-Finder-main\\Text-Finder-main\\src\\Lectores\\resultados investigacion.txt");
+            archivo= new FileReader("src/Lectores/resultados investigacion.txt");
 
             if(archivo.ready()){
                 lector = new BufferedReader(archivo);
