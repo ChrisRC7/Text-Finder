@@ -11,30 +11,34 @@ import java.io.IOException;
 import java.util.List;
 
 public class LectorDOCX {
-    public static void main(String[] args){
-        AvlTree Tree;
-        Tree = new AvlTree();
+    public static AvlTree<String> LeerDocx(String Documento){
+        AvlTree<String> Tree;
+        Tree = new AvlTree<String>();
+        Tree.SetDocName(Documento);
         try {
-            FileInputStream fis = new FileInputStream("src/Lectores/Prueba docx.docx");
+            FileInputStream file = new FileInputStream("src/Lectores/"+Documento);
 
-            XWPFDocument docx = new XWPFDocument(fis);
+            XWPFDocument docx = new XWPFDocument(file);
             List<XWPFParagraph> paragraphList = docx.getParagraphs();
 
+            String line = System.getProperty("line.separator");
             for(XWPFParagraph paragraph: paragraphList){
-                String [] Palabras_separadas = paragraph.getText().split(" ");
+                String [] Palabras_separadas = paragraph.getText().replaceAll(line,"").split(" ");
                 
                 for (String Palabras : Palabras_separadas){
-                    Tree.insert(Palabras);
+                    if (Palabras!=""){
+                        Tree.insert(Palabras);
+                    }
                 }
-                //System.out.println(paragraph.getText());
             }
-            Tree.contains("U+1F60A");
+            docx.close();
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return Tree;
 
     }
 }

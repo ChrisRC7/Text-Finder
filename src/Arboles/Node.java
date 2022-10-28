@@ -2,7 +2,6 @@ package Arboles;
 
 public class Node<T extends Comparable<T>> {
     
-    
     T element;
     Node<T> left;
     Node<T> right;

@@ -1,16 +1,17 @@
 package Arboles;
 
-public class AvlNode {
-    String element;
-    AvlNode left;
-    AvlNode right;
+public class AvlNode<T extends Comparable<T>> {
+
+    T element;
+    AvlNode<T> left;
+    AvlNode<T> right;
     int height;
 
-    public AvlNode(String element) {
+    public AvlNode(T element) {
         this(element, null, null);
     }
     
-    public AvlNode(String element, AvlNode left, AvlNode right) {
+    public AvlNode(T element, AvlNode<T> left, AvlNode<T> right) {
         this.element = element;
         this.left = left;
         this.right = right;

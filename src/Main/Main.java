@@ -7,10 +7,15 @@ import org.apache.commons.io.FilenameUtils;
 import Arboles.AvlTree;
 import Arboles.BinaryTree;
 import Interfaz.Interfaz;
+import Lectores.LectorDOCX;
+import Lectores.LectorPDF;
+import Lectores.LectorTXT;
+import ListasEnlazadas.LinkedList;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
+        LinkedList Arboles= new LinkedList();
         String Ruta= System.getProperty("user.dir");
         File Carpeta = new File("src/Lectores");
 
@@ -19,12 +24,23 @@ public class Main {
         for (int i = 0; i < archivos.length; i++) {
             String archivo_acutal= archivos[i];
             String tipo= FilenameUtils.getExtension(archivo_acutal);
-            if (!tipo.equals("pdf") && !tipo.equals("java")){
-                System.out.println(archivo_acutal);
+            if (tipo.equals("docx")){
+                AvlTree<String> Tree= LectorDOCX.LeerDocx(archivo_acutal);
+                Arboles.insertLast(Tree);
+            }
+            
+            if (tipo.equals("pdf")){
+                AvlTree<String> Tree= LectorPDF.LeerPDF(archivo_acutal);
+                Arboles.insertLast(Tree);
+            }
+            if (tipo.equals("txt")){
+                AvlTree<String> Tree= LectorTXT.LeerTXT(archivo_acutal);
+                Arboles.insertLast(Tree);
             }
         }
-
+        
         Interfaz.VentanaInicio();
+        Interfaz.SetLista(Arboles);
 
 
 

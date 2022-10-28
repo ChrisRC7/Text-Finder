@@ -1,21 +1,27 @@
 package Interfaz;
 
-import javax.swing.*;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+import Arboles.AvlTree;
+import ListasEnlazadas.LinkedList;
+
 import java.awt.event.*;
 
 
 public class Interfaz extends JFrame implements ActionListener{
     JButton Buscarbtn;
-    private JTextField PalabraPorBuscar;
+    static LinkedList Arboles;
+    AvlTree<String> Tree;
 
+    private JTextField PalabraPorBuscar;
+    
         public Interfaz() {
 
             setLayout(null);
 
-            Buscarbtn= new JButton("<html>Detener Biblioteca<html>");
+            Buscarbtn= new JButton("<htmlBuscar<html>");
             Buscarbtn.setBounds(100, 50, 100, 100);
             Buscarbtn.addActionListener(this);
             add(Buscarbtn);
@@ -32,7 +38,15 @@ public class Interfaz extends JFrame implements ActionListener{
                 String Palabra = PalabraPorBuscar.getText();
                 Palabra= Palabra.replaceAll(" ", "");
                 if(Palabra.length()!=0) {
-                    System.out.println(Palabra);
+                    Tree = (AvlTree<String>) Arboles.GetHead();
+                    while (Tree!=null){
+                        Tree.contains(Palabra);
+                        if(Tree.GetResultados()>0){
+                            System.out.println(" En el documeto " + Tree.GetDocName() + " se encotro la palabra " + 
+                            Palabra + " " + Tree.GetResultados() + " veces, " + " con " + Tree.GetComparaciones() + " comparaciones");
+                        }
+                        Tree= (AvlTree<String>) Arboles.GetNext(Tree);
+                    }    
                 }
             }
          }
@@ -44,6 +58,10 @@ public class Interfaz extends JFrame implements ActionListener{
             Ventana.setSize(650,500);
             Ventana.setVisible(true);
 
+        }
+
+        public static void SetLista(LinkedList Lista){
+            Arboles= Lista;
         }
 
 }
