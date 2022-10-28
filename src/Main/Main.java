@@ -4,8 +4,7 @@ import java.io.File;
 
 import org.apache.commons.io.FilenameUtils;
 
-import Arboles.AvlTree;
-import Arboles.BinaryTree;
+import Arboles.*;
 import Interfaz.Interfaz;
 import Lectores.LectorDOCX;
 import Lectores.LectorPDF;
@@ -15,8 +14,12 @@ import ListasEnlazadas.LinkedList;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        LinkedList Arboles= new LinkedList();
+        LinkedList ArbolesAvl= new LinkedList();
+        LinkedList ArbolesBinary= new LinkedList();
         File Carpeta = new File("src/Lectores");
+        LectorDOCX Docx= new LectorDOCX();
+        LectorPDF Pdf= new LectorPDF();
+        LectorTXT Txt= new LectorTXT();
 
         String[] archivos = Carpeta.list();
 
@@ -24,67 +27,40 @@ public class Main {
             String archivo_acutal= archivos[i];
             String tipo= FilenameUtils.getExtension(archivo_acutal);
             if (tipo.equals("docx")){
-                AvlTree<String> Tree= LectorDOCX.LeerDocx(archivo_acutal);
-                Arboles.insertLast(Tree);
+                Docx.LeerDocx(archivo_acutal);
+
+                AvlTree<String> AvlTree= Docx.GetAvl();
+                ArbolesAvl.insertLast(AvlTree);
+
+                BinaryTree<String> BinaryTree= Docx.GetBinary();
+                ArbolesBinary.insertLast(BinaryTree);
+
             }
             
             if (tipo.equals("pdf")){
-                AvlTree<String> Tree= LectorPDF.LeerPDF(archivo_acutal);
-                Arboles.insertLast(Tree);
+                Pdf.LeerPDF(archivo_acutal);
+
+                AvlTree<String> Tree= Pdf.GetAvl();
+                ArbolesAvl.insertLast(Tree);
+
+                BinaryTree<String> BinaryTree= Pdf.GetBinary();
+                ArbolesBinary.insertLast(BinaryTree);
+
             }
             if (tipo.equals("txt")){
-                AvlTree<String> Tree= LectorTXT.LeerTXT(archivo_acutal);
-                Arboles.insertLast(Tree);
+                Txt.LeerTXT(archivo_acutal);
+
+                AvlTree<String> Tree= Txt.GetAvl();
+                ArbolesAvl.insertLast(Tree);
+
+                BinaryTree<String> BinaryTree= Txt.GetBinary();
+                ArbolesBinary.insertLast(BinaryTree);
             }
         }
         
         Interfaz.VentanaInicio();
-        Interfaz.SetLista(Arboles);
-
-
-
-
-        /* 
-        AvlTree Tree;
-        Tree = new AvlTree();
-        Tree.insert("50000");
-        Tree.insert("20");
-        Tree.insert("600000");
-        Tree.insert("1");
-        Tree.insert("300");
-        Tree.insert("4000");
-        //Tree.contains("600001");
-
-        BinaryTree<String> TreeB;
-        TreeB= new BinaryTree<>();
-        TreeB.insert("a");
-        TreeB.insert("ab");
-        TreeB.insert("abc");
-        TreeB.insert("abcd");
-        TreeB.insert("abcde");
-        TreeB.insert("abcdef");
-        TreeB.insert("abcdefg");
-
-        //TreeB.remove("8");
-        //TreeB.remove(10);
-        //TreeB.remove("1");
-        System.out.println("Valores dentro del arbol");
-        
-        //System.out.println("Valores eliminados: ");
-        TreeB.contains("abcdefg");
-        TreeB.contains("abcdef");
-        TreeB.contains("abcde");
-
-        TreeB.contains("abcd");
-        TreeB.contains("abc");
-        TreeB.contains("ab");
-        TreeB.contains("a");
-
-        System.out.println("Es mayor es: ");
-        TreeB.findMax();
-        System.out.println("El menor es: ");
-        TreeB.findMin();
-        */
+        Interfaz.SetListaAvl(ArbolesAvl);
+        Interfaz.SetListaBinary(ArbolesBinary);
 
     }
 }

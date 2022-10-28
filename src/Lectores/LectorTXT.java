@@ -3,15 +3,21 @@ package Lectores;
 import java.io.BufferedReader;
 import java.io.FileReader;
 
-import Arboles.AvlTree;
+import Arboles.*;
 
 public class LectorTXT {
-    public static AvlTree<String> LeerTXT(String Documento){
+    AvlTree<String> AvlTree;
+    BinaryTree<String> BinaryTree;
+
+    public void LeerTXT(String Documento){
+        this.AvlTree = new AvlTree<String>();
+        this.AvlTree.SetDocName(Documento);
+
+        this.BinaryTree= new BinaryTree<String>();
+        this.BinaryTree.SetDocName(Documento);
+
         FileReader archivo;
         BufferedReader lector;
-        AvlTree<String> Tree;
-        Tree = new AvlTree<String>();
-        Tree.SetDocName(Documento);
         try{
             archivo= new FileReader("src/Lectores/"+Documento);
 
@@ -22,7 +28,8 @@ public class LectorTXT {
                     String [] Separador= cadena.replaceAll("\\s*$", "").split(" ");
                     for (String Palabras : Separador) {
                         if(Palabras!=""){
-                            Tree.insert(Palabras.toLowerCase());
+                            AvlTree.insert(Palabras.toLowerCase());
+                            BinaryTree.insert(Palabras.toLowerCase());
                         }
                     }
                 }
@@ -33,7 +40,13 @@ public class LectorTXT {
         }catch(Exception e){
             System.out.println("Error: "+e.getMessage());
         }
-        return Tree;
+    }
 
+    public AvlTree<String> GetAvl() {
+        return this.AvlTree;
+    }
+
+    public BinaryTree<String> GetBinary() {
+        return this.BinaryTree;
     }
 }

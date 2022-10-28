@@ -3,7 +3,8 @@ package Lectores;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
-import Arboles.AvlTree;
+import Arboles.*;
+
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,10 +12,15 @@ import java.io.IOException;
 import java.util.List;
 
 public class LectorDOCX {
-    public static AvlTree<String> LeerDocx(String Documento){
-        AvlTree<String> Tree;
-        Tree = new AvlTree<String>();
-        Tree.SetDocName(Documento);
+    AvlTree<String> AvlTree;
+    BinaryTree<String> BinaryTree;
+
+    public void LeerDocx(String Documento){
+        this.AvlTree = new AvlTree<String>();
+        this.AvlTree.SetDocName(Documento);
+
+        this.BinaryTree= new BinaryTree<String>();
+        this.BinaryTree.SetDocName(Documento);
         try {
             FileInputStream file = new FileInputStream("src/Lectores/"+Documento);
 
@@ -27,7 +33,8 @@ public class LectorDOCX {
                 
                 for (String Palabras : Palabras_separadas){
                     if (Palabras!=""){
-                        Tree.insert(Palabras.toLowerCase());
+                        this.AvlTree.insert(Palabras.toLowerCase());
+                        this.BinaryTree.insert(Palabras.toLowerCase());
                     }
                 }
             }
@@ -38,7 +45,13 @@ public class LectorDOCX {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return Tree;
+    }
 
+    public AvlTree<String> GetAvl() {
+        return this.AvlTree;
+    }
+
+    public BinaryTree<String> GetBinary() {
+        return this.BinaryTree;
     }
 }

@@ -4,7 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import Arboles.AvlTree;
+import Arboles.*;
 import ListasEnlazadas.LinkedList;
 
 import java.awt.event.*;
@@ -12,8 +12,10 @@ import java.awt.event.*;
 
 public class Interfaz extends JFrame implements ActionListener{
     JButton Buscarbtn;
-    static LinkedList Arboles;
-    AvlTree<String> Tree;
+    static LinkedList ArbolesAvl;
+    static LinkedList ArbolesBinary;
+    AvlTree<String> AvlTree;
+    BinaryTree<String> BinaryTree;
 
     private JTextField PalabraPorBuscar;
     
@@ -39,14 +41,17 @@ public class Interfaz extends JFrame implements ActionListener{
                 String Palabra = PalabraPorBuscar.getText();
                 Palabra= Palabra.replaceAll(" ", "").toLowerCase();
                 if(Palabra.length()!=0) {
-                    Tree = (AvlTree<String>) Arboles.GetHead();
-                    while (Tree!=null){
-                        Tree.contains(Palabra);
-                        if(Tree.GetResultados()>0){
-                            System.out.println(" En el documeto " + Tree.GetDocName() + " se encotro la palabra " + 
-                            Palabra + " " + Tree.GetResultados() + " veces, " + " con " + Tree.GetComparaciones() + " comparaciones");
+                    AvlTree = (AvlTree<String>) ArbolesAvl.GetHead();
+                    BinaryTree= (BinaryTree<String>) ArbolesBinary.GetHead();
+                    while (AvlTree!=null){
+                        if(AvlTree.contains(Palabra)){
+                            BinaryTree.contains(Palabra);
+                            System.out.println(" En el documeto " + AvlTree.GetDocName() + " se encotro la palabra " + 
+                            Palabra + " " + AvlTree.GetResultados() + " veces, " + " con: " + AvlTree.GetComparaciones() + 
+                            " comparaciones en el AvlTree y con: " + BinaryTree.GetComparaciones() + " comparaciones en el BinaryTree");
                         }
-                        Tree= (AvlTree<String>) Arboles.GetNext(Tree);
+                        AvlTree= (AvlTree<String>) ArbolesAvl.GetNext(AvlTree);
+                        BinaryTree= (BinaryTree<String>) ArbolesBinary.GetNext(BinaryTree);
                     }    
                 }
             }
@@ -61,8 +66,12 @@ public class Interfaz extends JFrame implements ActionListener{
 
         }
 
-        public static void SetLista(LinkedList Lista){
-            Arboles= Lista;
+        public static void SetListaAvl(LinkedList ListaAvl){
+            ArbolesAvl= ListaAvl;
+        }
+
+        public static void SetListaBinary(LinkedList ListaBinary){
+            ArbolesBinary= ListaBinary;
         }
 
 }
