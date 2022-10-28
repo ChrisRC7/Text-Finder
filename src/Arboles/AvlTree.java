@@ -33,12 +33,15 @@ public class AvlTree<T extends Comparable<T>> {
             return new AvlNode<T>(element);
         }
         int compareResult= element.compareTo(current.element);
+        if (compareResult==0) {
+            current.AumentarApariciones();
+        }
         if (compareResult< 0) {
             current.left = insert(element, current.left);
 
         }
 
-        if (compareResult >= 0) {
+        if (compareResult > 0) {
             current.right = insert(element, current.right);
         }
 
@@ -104,23 +107,24 @@ public class AvlTree<T extends Comparable<T>> {
         private boolean contains(T element, AvlNode<T> node) {
             if (node == null) {
                 return false;
-            }
-            int compareResult = element.compareTo(node.element);
-            NumComparaciones++;
-            if (compareResult < 0){
-                return contains(element, node.left);
-            }
-            if (compareResult >= 0){
-                if (element.equals(node.element)){
-                    CantidadResultados++;
+            } else {
+                int compareResult = element.compareTo(node.element);
+                NumComparaciones++;
+                if (compareResult==0){
+                    CantidadResultados= node.NumApariciones();
+                    return true;
+
+                } else if(compareResult<0){
+                    return contains(element, node.left);
+
+                } else if (compareResult > 0) {
+                    return contains(element, node.right);
                 }
-                return contains(element, node.right);
             }
-            else{
-                System.out.println("No esta; es el print del de abajo");
-                return false;
-                }          
-            }
+            return false;
+        }
+                    
+            
         
         public int GetResultados(){
             return CantidadResultados;
@@ -150,23 +154,6 @@ public class AvlTree<T extends Comparable<T>> {
                 this.inOrder(root.left);
                 
             }
-        }
-        
-        public void Buscar(T element){
-            AvlNode<T> current = this.root;
-            while(current!=null){
-                int actualresult= element.compareTo(current.element);
-                if (actualresult>=0){
-                    if (element.equals(current.element)){
-                        System.out.println("Esta");
-                    }
-                    current= current.right;
-                }
-                if (actualresult<0){
-                    current= current.left;
-                }
-            }
-            System.out.println("Se termino el recorrido");
         }
 
 }

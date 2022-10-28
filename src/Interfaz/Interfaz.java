@@ -21,7 +21,7 @@ public class Interfaz extends JFrame implements ActionListener{
 
             setLayout(null);
 
-            Buscarbtn= new JButton("<htmlBuscar<html>");
+            Buscarbtn= new JButton("<html>Buscar<html>");
             Buscarbtn.setBounds(100, 50, 100, 100);
             Buscarbtn.addActionListener(this);
             add(Buscarbtn);
@@ -32,11 +32,12 @@ public class Interfaz extends JFrame implements ActionListener{
 
         }
 
+        @SuppressWarnings("unchecked")
         @Override
         public void actionPerformed(ActionEvent btn) {
             if (btn.getSource() == Buscarbtn) {
                 String Palabra = PalabraPorBuscar.getText();
-                Palabra= Palabra.replaceAll(" ", "");
+                Palabra= Palabra.replaceAll(" ", "").toLowerCase();
                 if(Palabra.length()!=0) {
                     Tree = (AvlTree<String>) Arboles.GetHead();
                     while (Tree!=null){

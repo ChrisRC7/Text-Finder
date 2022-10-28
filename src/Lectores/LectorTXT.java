@@ -22,7 +22,7 @@ public class LectorTXT {
                     String [] Separador= cadena.replaceAll("\\s*$", "").split(" ");
                     for (String Palabras : Separador) {
                         if(Palabras!=""){
-                            Tree.insert(Palabras);
+                            Tree.insert(Palabras.toLowerCase());
                         }
                     }
                 }

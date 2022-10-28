@@ -27,7 +27,7 @@ public class LectorDOCX {
                 
                 for (String Palabras : Palabras_separadas){
                     if (Palabras!=""){
-                        Tree.insert(Palabras);
+                        Tree.insert(Palabras.toLowerCase());
                     }
                 }
             }

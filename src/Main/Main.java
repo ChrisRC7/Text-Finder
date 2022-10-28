@@ -16,7 +16,6 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         LinkedList Arboles= new LinkedList();
-        String Ruta= System.getProperty("user.dir");
         File Carpeta = new File("src/Lectores");
 
         String[] archivos = Carpeta.list();

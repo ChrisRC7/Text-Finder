@@ -24,7 +24,7 @@ public class LectorPDF {
             for (String Palabras : Separador){
                 
                 if (Palabras!=""){
-                    Tree.insert(Palabras);
+                    Tree.insert(Palabras.toLowerCase());
                 }
             }
             document.close();
