@@ -19,7 +19,7 @@ public class LectorPDF {
         this.BinaryTree= new BinaryTree<String>();
         this.BinaryTree.SetDocName(Documento);
         try {
-            PDDocument document = PDDocument.load(new File("src/Lectores/"+Documento));
+            PDDocument document = PDDocument.load(new File(Documento));
             PDFTextStripper pdftext = new PDFTextStripper();
 
             String line = System.getProperty("line.separator");

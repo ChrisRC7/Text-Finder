@@ -1,5 +1,6 @@
 package Lectores;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 
@@ -20,9 +21,9 @@ public class LectorDOCX {
         this.AvlTree.SetDocName(Documento);
 
         this.BinaryTree= new BinaryTree<String>();
-        this.BinaryTree.SetDocName(Documento);
+        this.BinaryTree.SetDocName(FilenameUtils.getBaseName(Documento));
         try {
-            FileInputStream file = new FileInputStream("src/Lectores/"+Documento);
+            FileInputStream file = new FileInputStream(Documento);
 
             XWPFDocument docx = new XWPFDocument(file);
             List<XWPFParagraph> paragraphList = docx.getParagraphs();

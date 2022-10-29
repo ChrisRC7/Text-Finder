@@ -82,6 +82,19 @@ public class LinkedList {
         return this.head.getData();
     }
 
+    public boolean InsertLastUnique(Object data) {
+        Node current= this.head;
+        while(current!=null){
+            if(current.getData().equals(data)){
+                return false;
+            } else {
+                current = current.getNext();
+            }
+        }
+        insertLast(data);
+        return true;
+    }
+
     public Object GetNext (Object searchValue) {
         Node current = this.head;
 

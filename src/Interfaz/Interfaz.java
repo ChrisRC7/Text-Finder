@@ -5,13 +5,16 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Arboles.*;
 import ListasEnlazadas.LinkedList;
+import Sockets.Cliente;
 
 import java.awt.event.*;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 
 public class Interfaz extends JFrame implements ActionListener{
-    JButton BuscarBtn, AgregarBtn;
+    JButton BuscarBtn, AgregarArchivoBtn, AgregarDirectorioBtn;
     static LinkedList ArbolesAvl;
     static LinkedList ArbolesBinary;
     AvlTree<String> AvlTree;
@@ -28,10 +31,15 @@ public class Interfaz extends JFrame implements ActionListener{
             BuscarBtn.addActionListener(this);
             add(BuscarBtn);
 
-            AgregarBtn= new JButton("<html>Agregar<html>");
-            AgregarBtn.setBounds(300, 50, 100, 100);
-            AgregarBtn.addActionListener(this);
-            add(AgregarBtn);
+            AgregarArchivoBtn= new JButton("<html>Agregar Arhicvo<html>");
+            AgregarArchivoBtn.setBounds(300, 50, 100, 100);
+            AgregarArchivoBtn.addActionListener(this);
+            add(AgregarArchivoBtn);
+
+            AgregarDirectorioBtn= new JButton("<html>Agregar Directorio<html>");
+            AgregarDirectorioBtn.setBounds(300, 300, 100, 100);
+            AgregarDirectorioBtn.addActionListener(this);
+            add(AgregarDirectorioBtn);
 
             PalabraPorBuscar= new JTextField();
             PalabraPorBuscar.setBounds(200, 200, 100,30);
@@ -39,29 +47,16 @@ public class Interfaz extends JFrame implements ActionListener{
 
         }
 
-        @SuppressWarnings("unchecked")
+        
         @Override
         public void actionPerformed(ActionEvent btn) {
             if (btn.getSource() == BuscarBtn) {
-                String Palabra = PalabraPorBuscar.getText();
-                Palabra= Palabra.replaceAll(" ", "").toLowerCase();
-                if(Palabra.length()!=0) {
-                    AvlTree = (AvlTree<String>) ArbolesAvl.GetHead();
-                    BinaryTree= (BinaryTree<String>) ArbolesBinary.GetHead();
-                    while (AvlTree!=null){
-                        if(AvlTree.contains(Palabra)){
-                            BinaryTree.contains(Palabra);
-                            System.out.println(" En el documeto " + AvlTree.GetDocName() + " se encotro la palabra " + 
-                            Palabra + " " + AvlTree.GetResultados() + " veces, " + " con: " + AvlTree.GetComparaciones() + 
-                            " comparaciones en el AvlTree y con: " + BinaryTree.GetComparaciones() + " comparaciones en el BinaryTree");
-                        }
-                        AvlTree= (AvlTree<String>) ArbolesAvl.GetNext(AvlTree);
-                        BinaryTree= (BinaryTree<String>) ArbolesBinary.GetNext(BinaryTree);
-                    }    
-                }
+                Cliente.EnviarPalabra(PalabraPorBuscar.getText());
             }
 
-            if (btn.getSource() == AgregarBtn) {
+            if (btn.getSource() == AgregarArchivoBtn) {
+                Scanner entrada = null;
+                String ruta= "";
                 JFileChooser BuscarArchivos = new JFileChooser();
                 BuscarArchivos.setCurrentDirectory(new File("."));
                 BuscarArchivos.setDialogTitle("Selecionar archivos docx, pdf o txt");
@@ -69,6 +64,33 @@ public class Interfaz extends JFrame implements ActionListener{
                 FileNameExtensionFilter filtro = new FileNameExtensionFilter("Filtro", "docx", "pdf", "txt");
                 BuscarArchivos.addChoosableFileFilter(filtro);
                 BuscarArchivos.showOpenDialog(this);
+                try {
+                    ruta = BuscarArchivos.getSelectedFile().getAbsolutePath();
+                    File archivo= new File(ruta);
+                    entrada = new Scanner(archivo);
+                    Cliente.EnviarPalabra(archivo);
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (NullPointerException e) {
+                    System.out.println("No se ha seleccionado ningún fichero");
+                } finally{
+                    if (entrada!=null){
+                        entrada.close();
+                    }
+                }
+            }
+
+            if (btn.getSource() == AgregarDirectorioBtn) {
+                JFileChooser BuscarCarpeta = new JFileChooser();
+                BuscarCarpeta.setCurrentDirectory(new File("."));
+                BuscarCarpeta.setDialogTitle("Selecionar carpeta");
+                BuscarCarpeta.setAcceptAllFileFilterUsed(false);
+                BuscarCarpeta.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+                if (BuscarCarpeta.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
+                    Cliente.EnviarPalabra(BuscarCarpeta);
+                }
+              
             }
          }
 

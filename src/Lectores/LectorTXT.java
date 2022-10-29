@@ -19,7 +19,7 @@ public class LectorTXT {
         FileReader archivo;
         BufferedReader lector;
         try{
-            archivo= new FileReader("src/Lectores/"+Documento);
+            archivo= new FileReader(Documento);
 
             if(archivo.ready()){
                 lector = new BufferedReader(archivo);
