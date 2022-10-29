@@ -6,29 +6,35 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
 
-class LaminaMarcoCliente extends JPanel{
+public class Cliente extends JFrame implements ActionListener{
     private JTextField campo1;
     private JButton miboton;
-    public LaminaMarcoCliente() {
+    
+    public Cliente() {
+        setLayout(null);
 
-        JLabel texto = new JLabel("Cliente");
-        add(texto);
         campo1 = new JTextField(20);
+        campo1.setBounds(30,150,100,50);
         add(campo1);
         miboton = new JButton("Enviar");
-
-        EnviaTexto mievento = new EnviaTexto();
-        miboton.addActionListener(mievento);
+        miboton.setBounds(30, 200, 100, 50);
+        miboton.addActionListener(this);
         add(miboton);
     }
-    private class EnviaTexto implements ActionListener {
-        /**
-         * @param e the event to be processed
-         */
-        @Override
-        public void actionPerformed(ActionEvent e){
-            try{
-                Socket misocket = new Socket("172.18.147.41",9998);
+
+    @Override
+    public void actionPerformed(ActionEvent btn) {
+        if (btn.getSource()== miboton){
+            String IP = new String();
+            try {
+                IP = InetAddress.getLocalHost().getHostAddress();
+            } catch (UnknownHostException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+            try(Socket misocket = new Socket(IP,9998)) {
+                
+                
 
                 DataOutputStream flujo_salida = new DataOutputStream(misocket.getOutputStream());
                 flujo_salida.writeUTF(campo1.getText());
@@ -38,19 +44,17 @@ class LaminaMarcoCliente extends JPanel{
             }
         }
     }
-}
-class MarcoCliente extends JFrame{
-    public MarcoCliente(){
-        setBounds(600,300,280,350);
-        LaminaMarcoCliente milamina = new LaminaMarcoCliente();
-        add(milamina);
-        setVisible(true);
+    
+
+    public static void IniciarCliente() {
+        Cliente Ventana = new Cliente();
+        Ventana.setTitle("Cliente");
+        Ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Ventana.setSize(650,500);
+        Ventana.setVisible(true);
+
     }
 }
-public class Cliente{
-    public static void main(String[] args){
-        MarcoCliente mimarco = new MarcoCliente();
-        mimarco.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-}
+
+   
 

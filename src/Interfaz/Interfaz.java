@@ -1,17 +1,17 @@
 package Interfaz;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Arboles.*;
 import ListasEnlazadas.LinkedList;
 
 import java.awt.event.*;
+import java.io.File;
 
 
 public class Interfaz extends JFrame implements ActionListener{
-    JButton Buscarbtn;
+    JButton BuscarBtn, AgregarBtn;
     static LinkedList ArbolesAvl;
     static LinkedList ArbolesBinary;
     AvlTree<String> AvlTree;
@@ -23,10 +23,15 @@ public class Interfaz extends JFrame implements ActionListener{
 
             setLayout(null);
 
-            Buscarbtn= new JButton("<html>Buscar<html>");
-            Buscarbtn.setBounds(100, 50, 100, 100);
-            Buscarbtn.addActionListener(this);
-            add(Buscarbtn);
+            BuscarBtn= new JButton("<html>Buscar<html>");
+            BuscarBtn.setBounds(100, 50, 100, 100);
+            BuscarBtn.addActionListener(this);
+            add(BuscarBtn);
+
+            AgregarBtn= new JButton("<html>Agregar<html>");
+            AgregarBtn.setBounds(300, 50, 100, 100);
+            AgregarBtn.addActionListener(this);
+            add(AgregarBtn);
 
             PalabraPorBuscar= new JTextField();
             PalabraPorBuscar.setBounds(200, 200, 100,30);
@@ -37,7 +42,7 @@ public class Interfaz extends JFrame implements ActionListener{
         @SuppressWarnings("unchecked")
         @Override
         public void actionPerformed(ActionEvent btn) {
-            if (btn.getSource() == Buscarbtn) {
+            if (btn.getSource() == BuscarBtn) {
                 String Palabra = PalabraPorBuscar.getText();
                 Palabra= Palabra.replaceAll(" ", "").toLowerCase();
                 if(Palabra.length()!=0) {
@@ -54,6 +59,16 @@ public class Interfaz extends JFrame implements ActionListener{
                         BinaryTree= (BinaryTree<String>) ArbolesBinary.GetNext(BinaryTree);
                     }    
                 }
+            }
+
+            if (btn.getSource() == AgregarBtn) {
+                JFileChooser BuscarArchivos = new JFileChooser();
+                BuscarArchivos.setCurrentDirectory(new File("."));
+                BuscarArchivos.setDialogTitle("Selecionar archivos docx, pdf o txt");
+                BuscarArchivos.setAcceptAllFileFilterUsed(false);
+                FileNameExtensionFilter filtro = new FileNameExtensionFilter("Filtro", "docx", "pdf", "txt");
+                BuscarArchivos.addChoosableFileFilter(filtro);
+                BuscarArchivos.showOpenDialog(this);
             }
          }
 

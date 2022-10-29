@@ -5,6 +5,7 @@ import java.io.File;
 import org.apache.commons.io.FilenameUtils;
 
 import Arboles.*;
+import Sockets.*;
 import Interfaz.Interfaz;
 import Lectores.LectorDOCX;
 import Lectores.LectorPDF;
@@ -61,6 +62,10 @@ public class Main {
         Interfaz.VentanaInicio();
         Interfaz.SetListaAvl(ArbolesAvl);
         Interfaz.SetListaBinary(ArbolesBinary);
+        Servidor Servidor = new Servidor();
+        Servidor.IniciarServidor();
+        Cliente.IniciarCliente();
+        
 
     }
 }
