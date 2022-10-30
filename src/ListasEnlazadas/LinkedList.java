@@ -110,7 +110,6 @@ public class LinkedList {
         } else {
             return null;
         } 
-        
-        
     }
+    
 }

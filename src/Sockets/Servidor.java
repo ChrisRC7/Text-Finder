@@ -8,18 +8,22 @@ import Lectores.*;
 import ListasEnlazadas.*;
 import Arboles.*;
 
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.ObjectOutputStream;
+import java.net.*;
+import java.util.ArrayList;
+
 
 
 public class Servidor implements Runnable{
     LinkedList Archivos= new LinkedList();
     LinkedList ArbolesAvl= new LinkedList();
     LinkedList ArbolesBinary= new LinkedList();
+    ArrayList<String []> Resultados= new ArrayList<String []>();
     AvlTree<String> AvlTree;
     BinaryTree<String> BinaryTree;
     LectorDOCX Docx= new LectorDOCX();
@@ -41,19 +45,28 @@ public class Servidor implements Runnable{
                 InputStream Dato = misocket.getInputStream();
                 ObjectInputStream ObjectRecive= new ObjectInputStream(Dato);
                 Object object= ObjectRecive.readObject();
+                DataOutputStream OutPut= new DataOutputStream(misocket.getOutputStream());
+                ObjectOutputStream ObjectOutPut= new ObjectOutputStream(OutPut);
                 if (object instanceof String) {
                     String mensaje_texto = (String) object;
                     Buscar(mensaje_texto);
+                    if (!Resultados.isEmpty()){
+                        ObjectOutPut.writeObject(Resultados);
+                    } else {
+                        ObjectOutPut.writeObject("No hay resultados");
+                    }
                     misocket.close();
                     
                 } else if (object instanceof File) {
                     String archivo = ((File) object).getAbsolutePath();
                     Archivos.InsertLastUnique(archivo);
+                    ObjectOutPut.writeObject("Archivo procesado");
                     misocket.close();
 
                 } else if (object instanceof JFileChooser) {
                     File Carpeta= ((JFileChooser) object).getSelectedFile();
                     AgregarDocumentos(Carpeta);
+                    ObjectOutPut.writeObject("Se leyo la carperta");
                     misocket.close();
                     
                 } else if (object instanceof Integer) {
@@ -62,6 +75,8 @@ public class Servidor implements Runnable{
                         case 0:
                             LeerDocumentos();
                     }
+                    ObjectOutPut.writeObject("");
+                    misocket.close();
                 }
                 
             }
@@ -91,7 +106,8 @@ public class Servidor implements Runnable{
             String Documento= (String) Archivos.GetHead();
             while(Documento!=null) {
                 String tipo= FilenameUtils.getExtension(Documento);
-                if (tipo.equals("docx") && !Contain(Documento)){
+                Boolean SeLeyo= !Contain(Documento);
+                if (tipo.equals("docx") && SeLeyo){
                     Docx.LeerDocx(Documento);
     
                     AvlTree<String> AvlTree= Docx.GetAvl();
@@ -102,7 +118,7 @@ public class Servidor implements Runnable{
     
                 }
                 
-                if (tipo.equals("pdf") && !Contain(Documento)){
+                if (tipo.equals("pdf") && SeLeyo){
                     Pdf.LeerPDF(Documento);
     
                     AvlTree<String> Tree= Pdf.GetAvl();
@@ -113,7 +129,7 @@ public class Servidor implements Runnable{
     
                 }
 
-                if (tipo.equals("txt") && !Contain(Documento)){
+                if (tipo.equals("txt") && SeLeyo){
                     Txt.LeerTXT(Documento);
     
                     AvlTree<String> Tree= Txt.GetAvl();
@@ -135,16 +151,21 @@ public class Servidor implements Runnable{
         if (ArbolesAvl.isEmpty()) {
             LeerDocumentos();
         } else {
-        Palabra= Palabra.replaceAll(" ", "").toLowerCase();
+            Palabra= Palabra.replaceAll(" ", "").toLowerCase();
+            Resultados= new ArrayList<String []>();
             if(Palabra.length()!=0) {
                 AvlTree = (AvlTree<String>) ArbolesAvl.GetHead();
                 BinaryTree= (BinaryTree<String>) ArbolesBinary.GetHead();
                 while (AvlTree!=null){
                     if(AvlTree.contains(Palabra)){
                         BinaryTree.contains(Palabra);
-                        System.out.println(" En el documeto " + FilenameUtils.getBaseName(AvlTree.GetDocName())  + " se encotro la palabra " + 
+                        String[] Datos= {" En el documeto " + FilenameUtils.getBaseName(AvlTree.GetDocName()), " se encotro la palabra " + 
                         Palabra + " " + AvlTree.GetResultados() + " veces, " + " con: " + AvlTree.GetComparaciones() + 
-                        " comparaciones en el AvlTree y con: " + BinaryTree.GetComparaciones() + " comparaciones en el BinaryTree");
+                        " comparaciones en el AvlTree y con: " + BinaryTree.GetComparaciones() + " comparaciones en el BinaryTree"};
+                        Resultados.add(Datos);
+                        /*System.out.println(" En el documeto " + FilenameUtils.getBaseName(AvlTree.GetDocName())  + " se encotro la palabra " + 
+                        Palabra + " " + AvlTree.GetResultados() + " veces, " + " con: " + AvlTree.GetComparaciones() + 
+                        " comparaciones en el AvlTree y con: " + BinaryTree.GetComparaciones() + " comparaciones en el BinaryTree");*/
                     }
                     AvlTree= (AvlTree<String>) ArbolesAvl.GetNext(AvlTree);
                     BinaryTree= (BinaryTree<String>) ArbolesBinary.GetNext(BinaryTree);
@@ -169,4 +190,5 @@ public class Servidor implements Runnable{
             return false;
         }
     }
+
 }
