@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 
 public class Interfaz extends JFrame implements ActionListener{
-    JButton BuscarBtn, AgregarArchivoBtn, AgregarDirectorioBtn;
+    JButton BuscarBtn, AgregarArchivoBtn, AgregarDirectorioBtn, ActualizarBibliotecaBtn;
     static LinkedList ArbolesAvl;
     static LinkedList ArbolesBinary;
     AvlTree<String> AvlTree;
@@ -35,6 +35,11 @@ public class Interfaz extends JFrame implements ActionListener{
             AgregarArchivoBtn.setBounds(300, 50, 100, 100);
             AgregarArchivoBtn.addActionListener(this);
             add(AgregarArchivoBtn);
+
+            ActualizarBibliotecaBtn= new JButton("<html>Actualizar Bibliotecas<html>");
+            ActualizarBibliotecaBtn.setBounds(100, 300, 100, 100);
+            ActualizarBibliotecaBtn.addActionListener(this);
+            add(ActualizarBibliotecaBtn);
 
             AgregarDirectorioBtn= new JButton("<html>Agregar Directorio<html>");
             AgregarDirectorioBtn.setBounds(300, 300, 100, 100);
@@ -79,6 +84,10 @@ public class Interfaz extends JFrame implements ActionListener{
                         entrada.close();
                     }
                 }
+            }
+
+            if (btn.getSource() == ActualizarBibliotecaBtn) {
+                Cliente.EnviarPalabra(0);
             }
 
             if (btn.getSource() == AgregarDirectorioBtn) {

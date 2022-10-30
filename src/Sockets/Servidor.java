@@ -47,13 +47,21 @@ public class Servidor implements Runnable{
                     misocket.close();
                     
                 } else if (object instanceof File) {
-                    Archivos.InsertLastUnique(object);
+                    String archivo = ((File) object).getAbsolutePath();
+                    Archivos.InsertLastUnique(archivo);
                     misocket.close();
 
                 } else if (object instanceof JFileChooser) {
                     File Carpeta= ((JFileChooser) object).getSelectedFile();
                     AgregarDocumentos(Carpeta);
                     misocket.close();
+                    
+                } else if (object instanceof Integer) {
+                    int Opciones= (int) object;
+                    switch(Opciones) {
+                        case 0:
+                            LeerDocumentos();
+                    }
                 }
                 
             }
@@ -83,8 +91,7 @@ public class Servidor implements Runnable{
             String Documento= (String) Archivos.GetHead();
             while(Documento!=null) {
                 String tipo= FilenameUtils.getExtension(Documento);
-                if (tipo.equals("docx")){
-                    System.out.println(Documento);
+                if (tipo.equals("docx") && !Contain(Documento)){
                     Docx.LeerDocx(Documento);
     
                     AvlTree<String> AvlTree= Docx.GetAvl();
@@ -95,8 +102,7 @@ public class Servidor implements Runnable{
     
                 }
                 
-                if (tipo.equals("pdf")){
-                    System.out.println(Documento);
+                if (tipo.equals("pdf") && !Contain(Documento)){
                     Pdf.LeerPDF(Documento);
     
                     AvlTree<String> Tree= Pdf.GetAvl();
@@ -107,8 +113,7 @@ public class Servidor implements Runnable{
     
                 }
 
-                if (tipo.equals("txt")){
-                    System.out.println(Documento);
+                if (tipo.equals("txt") && !Contain(Documento)){
                     Txt.LeerTXT(Documento);
     
                     AvlTree<String> Tree= Txt.GetAvl();
@@ -148,4 +153,20 @@ public class Servidor implements Runnable{
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public boolean Contain(String DocName) {
+        if (!ArbolesAvl.isEmpty()){
+            AvlTree= (AvlTree<String>) ArbolesAvl.GetHead();
+            while(AvlTree!=null){
+                if (AvlTree.GetDocName() == DocName) {
+                    return true;
+                } else {
+                    AvlTree= (AvlTree<String>) ArbolesAvl.GetNext(AvlTree);
+                }
+            }
+            return false;
+        } else {
+            return false;
+        }
+    }
 }

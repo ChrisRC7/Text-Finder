@@ -21,7 +21,7 @@ public class LectorDOCX {
         this.AvlTree.SetDocName(Documento);
 
         this.BinaryTree= new BinaryTree<String>();
-        this.BinaryTree.SetDocName(FilenameUtils.getBaseName(Documento));
+        this.BinaryTree.SetDocName(Documento);
         try {
             FileInputStream file = new FileInputStream(Documento);
 
