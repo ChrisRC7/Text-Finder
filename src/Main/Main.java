@@ -1,9 +1,7 @@
 package Main;
 
-import Sockets.*;
-import Interfaz.*;
-
-
+import Sockets.Servidor;
+import Interfaz.Interfaz;
 public class Main {
     public static void main(String[] args) throws Exception {  
         Servidor Servidor = new Servidor();

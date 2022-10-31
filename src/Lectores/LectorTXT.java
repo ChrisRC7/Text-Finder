@@ -2,8 +2,8 @@ package Lectores;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-
-import Arboles.*;
+import Arboles.AvlTree;
+import Arboles.BinaryTree;
 
 public class LectorTXT {
     AvlTree<String> AvlTree;

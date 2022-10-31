@@ -2,10 +2,8 @@ package Lectores;
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
-
-import Arboles.*;
-
-
+import Arboles.AvlTree;
+import Arboles.BinaryTree;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;

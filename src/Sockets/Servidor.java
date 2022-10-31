@@ -1,12 +1,15 @@
 package Sockets;
 
-import javax.swing.*;
-
 import org.apache.commons.io.FilenameUtils;
+import org.apache.tika.exception.TikaException;
+import org.xml.sax.SAXException;
 
-import Lectores.*;
-import ListasEnlazadas.*;
-import Arboles.*;
+import ListasEnlazadas.LinkedList;
+import Arboles.AvlTree;
+import Arboles.BinaryTree;
+import Lectores.LectorDOCX;
+import Lectores.LectorPDF;
+import Lectores.LectorTXT;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -14,8 +17,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.*;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
 
 
 
@@ -85,6 +91,12 @@ public class Servidor implements Runnable{
         } catch (ClassNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        } catch (SAXException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TikaException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
     }
 
@@ -101,7 +113,7 @@ public class Servidor implements Runnable{
         }
     }
 
-    public void LeerDocumentos() {
+    public void LeerDocumentos() throws SAXException, TikaException {
         if (!Archivos.isEmpty()) {
             String Documento= (String) Archivos.GetHead();
             while(Documento!=null) {
@@ -147,7 +159,7 @@ public class Servidor implements Runnable{
     }
 
     @SuppressWarnings("unchecked")
-    public void Buscar(String Palabra) {
+    public void Buscar(String Palabra) throws SAXException, TikaException {
         if (ArbolesAvl.isEmpty()) {
             LeerDocumentos();
         } else {
