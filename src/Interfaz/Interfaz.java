@@ -1,6 +1,8 @@
 package Interfaz;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import Arboles.*;
@@ -10,15 +12,20 @@ import Sockets.Cliente;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
-public class Interfaz extends JFrame implements ActionListener{
+public class Interfaz extends JFrame implements ActionListener, ListSelectionListener{
     JButton BuscarBtn, AgregarArchivoBtn, AgregarDirectorioBtn, ActualizarBibliotecaBtn;
     static LinkedList ArbolesAvl;
     static LinkedList ArbolesBinary;
+    static ArrayList<String []> Resultados;
     AvlTree<String> AvlTree;
     BinaryTree<String> BinaryTree;
+    static String [] Nombre_de_los_archivos;
+    static JLabel Mostrar_Resultados;
+    static JList<String> Nombre_de_archivo, b1, b2;
 
     private JTextField PalabraPorBuscar;
     
@@ -56,7 +63,12 @@ public class Interfaz extends JFrame implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent btn) {
             if (btn.getSource() == BuscarBtn) {
-                Cliente.EnviarPalabra(PalabraPorBuscar.getText());
+                try {
+                    Cliente.EnviarPalabra(PalabraPorBuscar.getText());
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
 
             if (btn.getSource() == AgregarArchivoBtn) {
@@ -79,6 +91,9 @@ public class Interfaz extends JFrame implements ActionListener{
                     e.printStackTrace();
                 } catch (NullPointerException e) {
                     System.out.println("No se ha seleccionado ningún fichero");
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
                 } finally{
                     if (entrada!=null){
                         entrada.close();
@@ -87,7 +102,12 @@ public class Interfaz extends JFrame implements ActionListener{
             }
 
             if (btn.getSource() == ActualizarBibliotecaBtn) {
-                Cliente.EnviarPalabra(0);
+                try {
+                    Cliente.EnviarPalabra(0);
+                } catch (ClassNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
             }
 
             if (btn.getSource() == AgregarDirectorioBtn) {
@@ -97,7 +117,12 @@ public class Interfaz extends JFrame implements ActionListener{
                 BuscarCarpeta.setAcceptAllFileFilterUsed(false);
                 BuscarCarpeta.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
                 if (BuscarCarpeta.showOpenDialog(this)== JFileChooser.APPROVE_OPTION){
-                    Cliente.EnviarPalabra(BuscarCarpeta);
+                    try {
+                        Cliente.EnviarPalabra(BuscarCarpeta);
+                    } catch (ClassNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
               
             }
@@ -112,12 +137,63 @@ public class Interfaz extends JFrame implements ActionListener{
 
         }
 
-        public static void SetListaAvl(LinkedList ListaAvl){
-            ArbolesAvl= ListaAvl;
+        public static void Lista() {
+            JFrame VentanaLista= new JFrame("Archivos disponibles");
+            VentanaLista.setBounds(0, 0, 800, 600);
+            VentanaLista.setVisible(true);
+
+            //create a new label
+            JLabel Texto_Arcihvos= new JLabel("<html>Nombre<html>");
+            Mostrar_Resultados= new JLabel();
+         
+            //create lists
+            Nombre_de_archivo= new JList<String> (Nombre_de_los_archivos);
+           
+         
+            //set a selected index
+            Nombre_de_archivo.setSelectedIndex(0);
+            Mostrar_Resultados.setText(Nombre_de_archivo.getSelectedValue()+ Resultados.get(0)[1]);
+            
+            Interfaz Ventana= new Interfaz();
+
+            //add item listener
+            Nombre_de_archivo.addListSelectionListener(Ventana);
+         
+            //add list to panel
+            JPanel Panel =new JPanel();
+            Panel.add(Texto_Arcihvos);
+            Panel.add(Nombre_de_archivo);
+            Panel.add(Mostrar_Resultados);
+  
+            VentanaLista.add(Panel);
+        
+            
+        
         }
 
-        public static void SetListaBinary(LinkedList ListaBinary){
-            ArbolesBinary= ListaBinary;
+        public void valueChanged(ListSelectionEvent e) {
+            String Archivo_selecionado= Nombre_de_archivo.getSelectedValue();
+            for (int i = 0; i < Resultados.size(); i++) {
+                if(Resultados.get(i)[0] == Archivo_selecionado) {
+                    Mostrar_Resultados.setText(Archivo_selecionado + Resultados.get(i)[1] );
+                    break;
+                }
+            }
+
         }
 
+        public void Mostrar() {
+            
+        }
+
+        public static void SetResultados(ArrayList<String []> Resultados_de_Busqueda) {
+            Resultados= Resultados_de_Busqueda;
+            Nombre_de_los_archivos= new String[Resultados.size()];
+            for (int i = 0; i < Resultados.size(); i++) {
+                Nombre_de_los_archivos[i]= Resultados.get(i)[0];
+            }
+            Lista();
+        }
 }
+
+
