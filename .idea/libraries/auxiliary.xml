@@ -1,0 +1,34 @@
+<component name="libraryTable">
+  <library name="auxiliary">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/external libs/poi-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-examples-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-excelant-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-ooxml-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-ooxml-full-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-ooxml-lite-5.2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/external libs/poi-scratchpad-5.2.3.jar!/" />
+      <root url="file://$PROJECT_DIR$/external libs/auxiliary" />
+      <root url="file://$PROJECT_DIR$/external libs/commons-fileupload" />
+      <root url="file://$PROJECT_DIR$/external libs/commons-logging-1.2.1.1.jar" />
+      <root url="file://$PROJECT_DIR$/external libs/fontbox-1.5.0.jar" />
+      <root url="file://$PROJECT_DIR$/external libs/lib" />
+      <root url="file://$PROJECT_DIR$/external libs/ooxml-lib" />
+      <root url="file://$PROJECT_DIR$/external libs/pdfbox-1.2.0.jar" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/external libs/poi-javadoc-5.2.3.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/external libs/commons-fileupload" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/external libs/auxiliary" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/external libs/commons-fileupload" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/external libs/commons-logging-1.2.1.1.jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/external libs/fontbox-1.5.0.jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/external libs/lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/external libs/ooxml-lib" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/external libs/pdfbox-1.2.0.jar" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/external libs/commons-fileupload" recursive="false" type="SOURCES" />
+  </library>
+</component>
