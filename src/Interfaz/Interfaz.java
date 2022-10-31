@@ -33,28 +33,33 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
 
             setLayout(null);
 
-            BuscarBtn= new JButton("<html>Mostrar resultados<html>");
-            BuscarBtn.setBounds(200, 300, 100, 30);
+            JLabel texto = new JLabel("-------------------------- Agregar --------------------------");
+            texto.setBounds(170, 0, 300, 50);
+            add(texto);
+
+
+            BuscarBtn= new JButton("<html>|🔍<html>");
+            BuscarBtn.setBounds(350, 150, 100, 30);
             BuscarBtn.addActionListener(this);
             add(BuscarBtn);
 
-            AgregarArchivoBtn= new JButton("<html>Agregar Archivo<html>");
-            AgregarArchivoBtn.setBounds(200, 170, 100, 30);
+            AgregarArchivoBtn= new JButton("<html>Archivo<html>");
+            AgregarArchivoBtn.setBounds(150, 50, 150, 30);
             AgregarArchivoBtn.addActionListener(this);
             add(AgregarArchivoBtn);
 
-            ActualizarBibliotecaBtn= new JButton("<html>Buscar<html>");
-            ActualizarBibliotecaBtn.setBounds(300, 300, 100, 30);
+            ActualizarBibliotecaBtn= new JButton("<html>|🔁<html>");
+            ActualizarBibliotecaBtn.setBounds(149, 150, 100, 30);
             ActualizarBibliotecaBtn.addActionListener(this);
             add(ActualizarBibliotecaBtn);
 
-            AgregarDirectorioBtn= new JButton("<html>Agregar Directorio<html>");
-            AgregarDirectorioBtn.setBounds(300, 170, 100, 30);
+            AgregarDirectorioBtn= new JButton("<html>Directorio<html>");
+            AgregarDirectorioBtn.setBounds(300, 50, 150, 30);
             AgregarDirectorioBtn.addActionListener(this);
             add(AgregarDirectorioBtn);
 
             PalabraPorBuscar= new JTextField();
-            PalabraPorBuscar.setBounds(250, 250, 100,30);
+            PalabraPorBuscar.setBounds(250, 150, 100,30);
             add(PalabraPorBuscar);
 
         }
@@ -132,7 +137,7 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
             Interfaz Ventana = new Interfaz();
             Ventana.setTitle("Text Finder CE");
             Ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            Ventana.setSize(650,500);
+            Ventana.setSize(650,300);
             Ventana.setVisible(true);
 
         }
