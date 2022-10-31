@@ -33,28 +33,28 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
 
             setLayout(null);
 
-            BuscarBtn= new JButton("<html>Buscar<html>");
-            BuscarBtn.setBounds(100, 50, 100, 100);
+            BuscarBtn= new JButton("<html>Mostrar resultados<html>");
+            BuscarBtn.setBounds(200, 300, 100, 30);
             BuscarBtn.addActionListener(this);
             add(BuscarBtn);
 
-            AgregarArchivoBtn= new JButton("<html>Agregar Arhicvo<html>");
-            AgregarArchivoBtn.setBounds(300, 50, 100, 100);
+            AgregarArchivoBtn= new JButton("<html>Agregar Archivo<html>");
+            AgregarArchivoBtn.setBounds(200, 170, 100, 30);
             AgregarArchivoBtn.addActionListener(this);
             add(AgregarArchivoBtn);
 
-            ActualizarBibliotecaBtn= new JButton("<html>Actualizar Bibliotecas<html>");
-            ActualizarBibliotecaBtn.setBounds(100, 300, 100, 100);
+            ActualizarBibliotecaBtn= new JButton("<html>Buscar<html>");
+            ActualizarBibliotecaBtn.setBounds(300, 300, 100, 30);
             ActualizarBibliotecaBtn.addActionListener(this);
             add(ActualizarBibliotecaBtn);
 
             AgregarDirectorioBtn= new JButton("<html>Agregar Directorio<html>");
-            AgregarDirectorioBtn.setBounds(300, 300, 100, 100);
+            AgregarDirectorioBtn.setBounds(300, 170, 100, 30);
             AgregarDirectorioBtn.addActionListener(this);
             add(AgregarDirectorioBtn);
 
             PalabraPorBuscar= new JTextField();
-            PalabraPorBuscar.setBounds(200, 200, 100,30);
+            PalabraPorBuscar.setBounds(250, 250, 100,30);
             add(PalabraPorBuscar);
 
         }

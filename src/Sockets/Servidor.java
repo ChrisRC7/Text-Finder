@@ -2,11 +2,14 @@ package Sockets;
 
 import javax.swing.*;
 
+import Interfaz.Interfaz;
+import org.apache.batik.dom.svg12.Global;
 import org.apache.commons.io.FilenameUtils;
 
 import Lectores.*;
 import ListasEnlazadas.*;
 import Arboles.*;
+import org.apache.pdfbox.text.PDFTextStripper;
 
 import java.io.DataOutputStream;
 import java.io.File;
@@ -115,7 +118,8 @@ public class Servidor implements Runnable{
     
                     BinaryTree<String> BinaryTree= Docx.GetBinary();
                     ArbolesBinary.insertLast(BinaryTree);
-    
+
+
                 }
                 
                 if (tipo.equals("pdf") && SeLeyo){
@@ -126,7 +130,7 @@ public class Servidor implements Runnable{
     
                     BinaryTree<String> BinaryTree= Pdf.GetBinary();
                     ArbolesBinary.insertLast(BinaryTree);
-    
+
                 }
 
                 if (tipo.equals("txt") && SeLeyo){
@@ -137,17 +141,20 @@ public class Servidor implements Runnable{
     
                     BinaryTree<String> BinaryTree= Txt.GetBinary();
                     ArbolesBinary.insertLast(BinaryTree);
+
+
                 }
                 Documento= (String) Archivos.GetNext(Documento);
             }
-            System.out.println("Se termino de leer");
+            System.out.println("Se termino de leer\nPresione Buscar");
         }else{
             System.out.println("No hay documentos para leer");
+
         }
     }
 
     @SuppressWarnings("unchecked")
-    public void Buscar(String Palabra) {
+    public void Buscar(String Palabra) throws IOException {
         if (ArbolesAvl.isEmpty()) {
             LeerDocumentos();
         } else {
@@ -159,11 +166,23 @@ public class Servidor implements Runnable{
                 while (AvlTree!=null){
                     if(AvlTree.contains(Palabra)){
                         BinaryTree.contains(Palabra);
-                        String[] Datos= {" En el documeto " + FilenameUtils.getBaseName(AvlTree.GetDocName()), " se encotro la palabra " + 
+                        String[] Datos= {" En el documento " + FilenameUtils.getBaseName(AvlTree.GetDocName()), " se encontro la palabra " +
                         Palabra + " " + AvlTree.GetResultados() + " veces, " + " con: " + AvlTree.GetComparaciones() + 
                         " comparaciones en el AvlTree y con: " + BinaryTree.GetComparaciones() + " comparaciones en el BinaryTree"};
                         Resultados.add(Datos);
-                        /*System.out.println(" En el documeto " + FilenameUtils.getBaseName(AvlTree.GetDocName())  + " se encotro la palabra " + 
+                        /*PDFTextStripper pdftext = new PDFTextStripper();
+                        String Documento= (String) Archivos.GetHead();
+                        String tipo= FilenameUtils.getExtension(Documento);
+                        if (tipo.equals("txt")){
+
+                        }
+                        if (tipo.equals("pdf")){
+
+                        }
+                        if (tipo.equals("docx")){
+
+                        }*/
+                        /*System.out.println(" En el documeto " + FilenameUtils.getBaseName(AvlTree.GetDocName())  + " se encotro la palabra " +
                         Palabra + " " + AvlTree.GetResultados() + " veces, " + " con: " + AvlTree.GetComparaciones() + 
                         " comparaciones en el AvlTree y con: " + BinaryTree.GetComparaciones() + " comparaciones en el BinaryTree");*/
                     }
