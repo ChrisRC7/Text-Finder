@@ -1,22 +1,11 @@
 // Importing the necessary libraries to read the PDF file.
 package Lectores;
 
-import Arboles.AvlTree;
-import Arboles.BinaryTree;
+import arboles.AvlTree;
+import arboles.BinaryTree;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.graphics.color.PDColor;
-import org.apache.pdfbox.pdmodel.graphics.color.PDDeviceRGB;
-import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotation;
-import org.apache.pdfbox.pdmodel.interactive.annotation.PDAnnotationTextMarkup;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.pdfbox.text.TextPosition;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.metadata.Metadata;  
 import org.apache.tika.sax.BodyContentHandler;

@@ -9,8 +9,8 @@ import org.apache.tika.exception.TikaException;
 import org.xml.sax.SAXException;
 
 import ListasEnlazadas.LinkedList;
-import Arboles.AvlTree;
-import Arboles.BinaryTree;
+import arboles.AvlTree;
+import arboles.BinaryTree;
 import Lectores.LectorDOCX;
 import Lectores.LectorPDF;
 import Lectores.LectorTXT;
