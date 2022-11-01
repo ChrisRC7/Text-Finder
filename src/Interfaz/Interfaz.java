@@ -28,7 +28,7 @@ import java.util.Scanner;
 
 
 public class Interfaz extends JFrame implements ActionListener, ListSelectionListener{
-    JButton BuscarBtn, AgregarArchivoBtn, AgregarDirectorioBtn, ActualizarBibliotecaBtn;
+    JButton BuscarBtn, AgregarArchivoBtn, AgregarDirectorioBtn, ActualizarBibliotecaBtn, Startbtn;
     static LinkedList ArbolesAvl;
     static LinkedList ArbolesBinary;
     static ArrayList<String []> Resultados;
@@ -44,9 +44,13 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
 
             setLayout(null);
 
-            JLabel texto = new JLabel("-------------------------- Agregar --------------------------");
-            texto.setBounds(170, 0, 300, 50);
-            add(texto);
+            JLabel agregar = new JLabel("-------------------------- Agregar --------------------------");
+            agregar.setBounds(170, 0, 300, 50);
+            add(agregar);
+
+            JLabel buscar = new JLabel("-------------------------- Buscar --------------------------");
+            buscar.setBounds(170, 110, 300, 50);
+            add(buscar);
 
 
             BuscarBtn= new JButton("<html>|🔍<html>");
@@ -78,6 +82,10 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
         
         @Override
         public void actionPerformed(ActionEvent btn) {
+
+            if(btn.getSource() == Startbtn){
+                System.out.println("kkkkk");
+            }
             if (btn.getSource() == BuscarBtn) {
                 try {
                     Cliente.EnviarPalabra(PalabraPorBuscar.getText());
@@ -153,7 +161,7 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
 
         }
 
-        public static void Lista() {
+        public static void Lista(){
             JFrame VentanaLista= new JFrame("Archivos disponibles");
             VentanaLista.setBounds(0, 0, 800, 600);
             VentanaLista.setVisible(true);
@@ -171,20 +179,21 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
             Mostrar_Resultados.setText(Nombre_de_archivo.getSelectedValue()+ Resultados.get(0)[1]);
             
             Interfaz Ventana= new Interfaz();
+            JButton Startbtn = new JButton("Prueba");
 
             //add item listener
             Nombre_de_archivo.addListSelectionListener(Ventana);
-         
+            Startbtn.addActionListener(Ventana);
+
             //add list to panel
             JPanel Panel =new JPanel();
             Panel.add(Texto_Arcihvos);
             Panel.add(Nombre_de_archivo);
             Panel.add(Mostrar_Resultados);
-  
+            Panel.add(Startbtn);
+
             VentanaLista.add(Panel);
-        
-            
-        
+
         }
 
         public void valueChanged(ListSelectionEvent e) {
@@ -195,7 +204,6 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
                     break;
                 }
             }
-
         }
 
         public void Mostrar() {

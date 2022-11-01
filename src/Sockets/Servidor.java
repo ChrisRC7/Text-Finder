@@ -179,21 +179,41 @@ public class Servidor implements Runnable{
                         Palabra + " " + AvlTree.GetResultados() + " veces, " + " con: " + AvlTree.GetComparaciones() + 
                         " comparaciones en el AvlTree y con: " + BinaryTree.GetComparaciones() + " comparaciones en el BinaryTree"};
                         Resultados.add(Datos);
-                        /*PDFTextStripper pdftext = new PDFTextStripper();
+                        //PDFTextStripper pdftext = new PDFTextStripper();
                         String Documento= (String) Archivos.GetHead();
                         String tipo= FilenameUtils.getExtension(Documento);
                         if (tipo.equals("txt")){
+                            try {
+                                String url = Documento;
+                                ProcessBuilder opener = new ProcessBuilder();
+                                opener.command("cmd.exe","/c",url);
+                                opener.start();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
 
                         }
                         if (tipo.equals("pdf")){
-
+                            try {
+                                String url = Documento;
+                                ProcessBuilder opener = new ProcessBuilder();
+                                opener.command("cmd.exe","/c",url);
+                                opener.start();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                         if (tipo.equals("docx")){
+                            try {
+                                String url = Documento;
+                                ProcessBuilder opener = new ProcessBuilder();
+                                opener.command("cmd.exe","/c",url);
+                                opener.start();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
 
-                        }*/
-                        /*System.out.println(" En el documeto " + FilenameUtils.getBaseName(AvlTree.GetDocName())  + " se encotro la palabra " +
-                        Palabra + " " + AvlTree.GetResultados() + " veces, " + " con: " + AvlTree.GetComparaciones() + 
-                        " comparaciones en el AvlTree y con: " + BinaryTree.GetComparaciones() + " comparaciones en el BinaryTree");*/
+                        }
                     }
                     AvlTree= (AvlTree<String>) ArbolesAvl.GetNext(AvlTree);
                     BinaryTree= (BinaryTree<String>) ArbolesBinary.GetNext(BinaryTree);
