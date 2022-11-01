@@ -3,8 +3,8 @@ package Lectores;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import Arboles.AvlTree;
-import Arboles.BinaryTree;
+import arboles.AvlTree;
+import arboles.BinaryTree;
 
 /**
  * It creates a class called LectorTXT that has two variables, AvlTree and BinaryTree.

@@ -7,7 +7,7 @@ import Sockets.Servidor;
 import Interfaz.Interfaz;
 public class Main {
     
-    /** 
+    /** x
      * @param args
      * @throws Exception
      */
