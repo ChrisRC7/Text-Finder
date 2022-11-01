@@ -1,10 +1,15 @@
+// A package declaration.
 package ListasEnlazadas;
 
+/**
+ * This class represents a linked list of nodes.
+ */
 public class LinkedList {
     private Node head;
     private Node last;
     private int size;
 
+   // The constructor of the class.
     public LinkedList(){
         this.head= null;
         this.last= null;
@@ -12,25 +17,32 @@ public class LinkedList {
     }
 
     
-    /** 
-     * @return boolean
+    
+    /**
+     * @return The method isEmpty() returns a boolean value.
      */
     public boolean isEmpty(){
         return this.head==null;
     }
     
     
-    /** 
-     * @return int
+
+    /**
+     * This function returns the size of the list
+     * 
+     * @return The size of the array.
      */
     public int size(){
         return this.size;
     }
 
     
-    /** 
-     * @param data
-     */
+ /**
+  * If the list is empty, set the head and last to the new node. Otherwise, set the new node's next to
+  * the head, set the head to the new node, and increment the size
+  * 
+  * @param data the data to be inserted
+  */
     public void insertFirst(Object data){
         Node newNode= new Node(data);
         if (this.isEmpty()) {
@@ -42,6 +54,12 @@ public class LinkedList {
         }
     }
 
+    /**
+     * If the list is empty, set the head and last to the new node. Otherwise, set the next of the last
+     * node to the new node and set the last to the new node
+     * 
+     * @param data the data to be inserted
+     */
     public void insertLast(Object data){
         Node newNode= new Node(data);
 
@@ -57,6 +75,7 @@ public class LinkedList {
     
     /** 
      * @return Node
+     * Deleting the first node of the list.
      */
     public Node deleFirts(){
         if(this.head!=null){
@@ -69,6 +88,10 @@ public class LinkedList {
         }
     }
 
+   /**
+    * The function starts at the head of the list and prints out each node's data until it reaches the
+    * end of the list
+    */
     public void displayList(){
         Node current= this.head;
         while (current!=null){
@@ -77,11 +100,20 @@ public class LinkedList {
         }
     }
 
+    /** 
+     * @return Object
+     * A method that returns the data of the head node.
+     */
     public Object GetHead() {
         
         return this.head.getData();
     }
 
+    /** 
+     * @param data
+     * @return boolean
+     * Checking if the data is already in the list.
+     */
     public boolean InsertLastUnique(Object data) {
         Node current= this.head;
         while(current!=null){
@@ -95,6 +127,11 @@ public class LinkedList {
         return true;
     }
 
+    /** 
+     * @param searchValue
+     * @return Object
+     * Searching for the next node after the one that is given as a parameter.
+     */
     public Object GetNext (Object searchValue) {
         Node current = this.head;
 
@@ -110,6 +147,31 @@ public class LinkedList {
         } else {
             return null;
         } 
+    }
+
+    
+    /** 
+     * @param searchValue
+     * Deleting a node from the list.
+     */
+    public void Delete (Object searchValue){
+        Node current = this.head;
+        Node previous = this.head;
+
+        if (current==this.head && current.getData().equals(searchValue)) {
+            this.head= this.head.getNext();
+        } else {
+            current = current.getNext();
+            while(current!=null){
+                if (current.getData().equals(searchValue)){
+                    previous.setNext(current.getNext());
+                    break;
+                }else{
+                    previous = current;
+                    current = current.getNext();
+                }
+            }
+        }
     }
     
 }

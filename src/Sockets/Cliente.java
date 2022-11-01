@@ -1,3 +1,4 @@
+// Importing the necessary libraries to use the sockets.
 package Sockets;
 
 import java.io.IOException;
@@ -13,8 +14,15 @@ import java.util.ArrayList;
 import Interfaz.Interfaz;
 
 
+// A class that is used to send data to the server and receive data from the server.
 public class Cliente  {
    
+    
+    /** 
+     * A method that sends a data to the server and receives a data from the server.
+     * @param Dato
+     * @throws ClassNotFoundException
+     */
     @SuppressWarnings("unchecked")
     public static void EnviarPalabra(Object Dato) throws ClassNotFoundException {
         String IP = new String();
@@ -36,6 +44,17 @@ public class Cliente  {
 
                 if ((object instanceof ArrayList)){
                     Interfaz.SetResultados((ArrayList<String[]>) object);
+                } else if (object instanceof String) {
+                    System.out.println(object);
+                    String[] Datos= ((String) object).split(",");
+                    if(Datos.length>1) {
+                        Interfaz.ActualizarLista((String[]) Datos);   
+                    } else{
+                        if(object.equals("Datos,")) {
+                            Interfaz.Eliminar();
+                        }
+                        System.out.println(object);
+                    }
                 }
                 
             }  catch (IOException ex) {

@@ -2,5 +2,10 @@
     "java.project.referencedLibraries": [
         "lib/**/*.jar",
         "external libs/tika-app-2.5.0.jar"
-    ]
+    ],
+    "docwriter.progress.trackClasses": true,
+    "docwriter.hotkey.windows": "Ctrl + .",
+    "docwriter.style": "Auto-detect",
+    "docwriter.progress.trackTypes": true,
+    "docwriter.progress.trackMethods": true
 }

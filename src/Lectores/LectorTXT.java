@@ -1,3 +1,4 @@
+// Importing the necessary libraries to read the file.
 package Lectores;
 
 import java.io.BufferedReader;
@@ -5,10 +6,20 @@ import java.io.FileReader;
 import Arboles.AvlTree;
 import Arboles.BinaryTree;
 
+/**
+ * It creates a class called LectorTXT that has two variables, AvlTree and BinaryTree.
+ */
 public class LectorTXT {
+ // Declaring the variables AvlTree and BinaryTree.
     AvlTree<String> AvlTree;
     BinaryTree<String> BinaryTree;
 
+    
+    /**
+     * It reads a text file and inserts each word into an AVL tree and a Binary tree
+     * 
+     * @param Documento The name of the file to be read.
+     */
     public void LeerTXT(String Documento){
         this.AvlTree = new AvlTree<String>();
         this.AvlTree.SetDocName(Documento);
@@ -42,10 +53,21 @@ public class LectorTXT {
         }
     }
 
+   /**
+    * This function returns the AvlTree object
+    * 
+    * @return The AvlTree object.
+    */
     public AvlTree<String> GetAvl() {
         return this.AvlTree;
     }
 
+    
+   /**
+    * This function returns the BinaryTree object that is a member of the class.
+    * 
+    * @return The BinaryTree object.
+    */
     public BinaryTree<String> GetBinary() {
         return this.BinaryTree;
     }

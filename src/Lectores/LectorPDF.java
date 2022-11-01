@@ -1,3 +1,4 @@
+// Importing the necessary libraries to read the PDF file.
 package Lectores;
 
 import Arboles.AvlTree;
@@ -22,10 +23,19 @@ import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.SAXException;
 import org.apache.tika.parser.pdf.PDFParser;  
 import org.apache.tika.parser.ParseContext;  
+// A class that reads a PDF file and stores the words in a binary tree and an AVL tree.
 public class LectorPDF {
+   // Creating a new object of the AvlTree and BinaryTree classes.
     AvlTree<String> AvlTree;
     BinaryTree<String> BinaryTree;
 
+    
+    /** 
+     * It reads a PDF file and stores the words in a binary tree and an AVL tree
+     * @param Documento
+     * @throws SAXException
+     * @throws TikaException
+     */
     public  void LeerPDF(String Documento) throws SAXException, TikaException{
         this.AvlTree = new AvlTree<String>();
         this.AvlTree.SetDocName(Documento);
@@ -250,10 +260,24 @@ public class LectorPDF {
             coordinates.add(word_coordinates);
         }}
 
+    
+  
+   /**
+    * This function returns the AvlTree object
+    * 
+    * @return The AvlTree object.
+    */
     public AvlTree<String> GetAvl() {
         return this.AvlTree;
     }
 
+    
+    
+    /**
+     * This function returns the BinaryTree object that is stored in the BinaryTree class
+     * 
+     * @return The BinaryTree object.
+     */
     public BinaryTree<String> GetBinary() {
         return this.BinaryTree;
     }
