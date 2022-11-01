@@ -45,7 +45,7 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
     static String [] CantidadResultados;
     static String Results;
     static JLabel Mostrar_Resultados;
-    static JList<String> Opciones_de_ordenamiento, b1, b2;
+    static JList<String> Opciones_de_ordenamiento, Archivos_Disponibles;;
 
     private JTextField PalabraPorBuscar;
     
@@ -193,7 +193,7 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
             Ventana.setSize(650,300);
             Ventana.getContentPane().setLayout(null);
             Ventana.setLocationRelativeTo(null);
-            SelecciónArchivo.setBounds(0, 115, 300, 30);
+            SelecciónArchivo.setBounds(90, 215, 300, 30);
             Ventana.add(SelecciónArchivo);
             Ventana.setVisible(true);
 
@@ -215,6 +215,7 @@ public class Interfaz extends JFrame implements ActionListener, ListSelectionLis
             String [] opciones= {"Nombre", "Fecha", "Cantidad de palabras"};
             //create lists
             Opciones_de_ordenamiento= new JList<String> (opciones);
+            
            
          
             //set a selected index
